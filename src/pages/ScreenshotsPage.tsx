@@ -1,6 +1,4 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { ArrowLeft, Smartphone } from "lucide-react";
+import { Smartphone } from "lucide-react";
 import { APP_SCREENS } from "../data/screenshotData";
 
 /**

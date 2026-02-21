@@ -1,6 +1,4 @@
-import React from "react";
 import HeroSection from "../Component/home/HeroSection";
-import StatsBar from "../Component/home/StatsBar";
 import FeaturesSection from "../Component/home/FeaturesSection";
 import UseCasesSection from "../Component/home/UseCasesSection";
 import HowItWorksSection from "../Component/home/HowItWorksSection";

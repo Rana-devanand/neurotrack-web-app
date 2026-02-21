@@ -1,5 +1,4 @@
-import React from "react";
-import { Download, CheckCircle2, Smartphone, Apple } from "lucide-react";
+import { Download, CheckCircle2, Smartphone } from "lucide-react";
 
 const TRUST_BULLETS = [
   "Free to download",
