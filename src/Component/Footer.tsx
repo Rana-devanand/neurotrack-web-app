@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import {
   Zap,
@@ -29,10 +28,11 @@ const FOOTER_LINKS = {
     { label: "Contact", href: "#contact" },
   ],
   Legal: [
-    { label: "Privacy Policy", href: "#privacy" },
-    { label: "Terms of Use", href: "#terms" },
-    { label: "Cookie Policy", href: "#cookies" },
-    { label: "Refund Policy", href: "#refund" },
+    { label: "Privacy Policy", href: "/privacy" },
+    { label: "Terms of Service", href: "/terms" },
+    { label: "Cookie Policy", href: "/cookies" },
+    { label: "Refund Policy", href: "/refund" },
+    { label: "Delete Account", href: "/delete-account" },
   ],
 };
 
@@ -325,33 +325,59 @@ const Footer = () => {
               >
                 {links.map(({ label, href }) => (
                   <li key={label}>
-                    <a
-                      href={href}
-                      onClick={(e) => {
-                        if (href.startsWith("#")) {
-                          e.preventDefault();
-                          scrollTo(href);
+                    {href.startsWith("/") ? (
+                      <Link
+                        to={href}
+                        style={{
+                          color: "var(--text-muted)",
+                          textDecoration: "none",
+                          fontSize: "14px",
+                          fontWeight: 500,
+                          transition: "color 0.2s",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: "4px",
+                        }}
+                        onMouseEnter={(e) =>
+                          ((e.currentTarget as HTMLElement).style.color =
+                            "var(--accent)")
                         }
-                      }}
-                      style={{
-                        color: "var(--text-muted)",
-                        textDecoration: "none",
-                        fontSize: "14px",
-                        fontWeight: 500,
-                        transition: "color 0.2s",
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: "4px",
-                      }}
-                      onMouseEnter={(e) =>
-                        (e.currentTarget.style.color = "var(--accent)")
-                      }
-                      onMouseLeave={(e) =>
-                        (e.currentTarget.style.color = "var(--text-muted)")
-                      }
-                    >
-                      {label}
-                    </a>
+                        onMouseLeave={(e) =>
+                          ((e.currentTarget as HTMLElement).style.color =
+                            "var(--text-muted)")
+                        }
+                      >
+                        {label}
+                      </Link>
+                    ) : (
+                      <a
+                        href={href}
+                        onClick={(e) => {
+                          if (href.startsWith("#")) {
+                            e.preventDefault();
+                            scrollTo(href);
+                          }
+                        }}
+                        style={{
+                          color: "var(--text-muted)",
+                          textDecoration: "none",
+                          fontSize: "14px",
+                          fontWeight: 500,
+                          transition: "color 0.2s",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: "4px",
+                        }}
+                        onMouseEnter={(e) =>
+                          (e.currentTarget.style.color = "var(--accent)")
+                        }
+                        onMouseLeave={(e) =>
+                          (e.currentTarget.style.color = "var(--text-muted)")
+                        }
+                      >
+                        {label}
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>
