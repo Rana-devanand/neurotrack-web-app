@@ -498,11 +498,139 @@ h5 {
   flex-shrink: 0;
 }
 
-/* ---- Responsive helpers ---- */
+/* ═══════════════════════════════════════════════
+   RESPONSIVE — Mobile First
+   Breakpoints:
+   • ≤ 1024px  : tablet / small laptop
+   • ≤ 768px   : landscape mobile / larger phone
+   • ≤ 480px   : portrait phone
+═══════════════════════════════════════════════ */
+
+/* ---- Container padding ---- */
 @media (max-width: 768px) {
-  .section {
-    padding: 72px 0;
+  .container { padding: 0 16px; }
+  .section    { padding: 72px 0; }
+}
+@media (max-width: 480px) {
+  .section { padding: 56px 0; }
+}
+
+/* ---- Hero section ---- */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 64px;
+  align-items: center;
+}
+@media (max-width: 1024px) {
+  .hero-grid { gap: 40px; }
+}
+@media (max-width: 768px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    text-align: center;
   }
+  .hero-phone { display: none; }  /* hide phone mockup on small screens */
+  .hero-badges { justify-content: center; }
+  .hero-ctas  { justify-content: center; }
+}
+
+/* ---- Stats bar: 4 → 2 → 1 col ---- */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  background: var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-card);
+}
+@media (max-width: 768px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 400px) {
+  .stats-grid { grid-template-columns: 1fr; }
+}
+
+/* ---- Features: handled by auto-fit, already responsive ---- */
+
+/* ---- Use Cases active panel: 2 → 1 col ---- */
+.use-cases-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  background: var(--bg-surface);
+  border-radius: var(--radius-xl);
+  padding: 48px;
+  border: 1px solid var(--border-card);
+  box-shadow: 0 30px 80px rgba(108,59,255,0.1);
+}
+@media (max-width: 900px) {
+  .use-cases-panel {
+    grid-template-columns: 1fr;
+    padding: 32px 24px;
+    gap: 32px;
+  }
+}
+@media (max-width: 480px) {
+  .use-cases-panel { padding: 24px 16px; }
+}
+
+/* ---- How It Works: 4 → 2 → 1 col ---- */
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  position: relative;
+  z-index: 1;
+}
+.how-connector {
+  display: block; /* visible on desktop */
+}
+@media (max-width: 900px) {
+  .how-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+  .how-connector { display: none; } /* hide connecting line */
+}
+@media (max-width: 500px) {
+  .how-grid { grid-template-columns: 1fr; }
+}
+
+/* ---- Pricing: 3 → 1 col ---- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+@media (max-width: 900px) {
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    max-width: 440px;
+  }
+  /* reset the scale(1.04) pop on the highlighted card so it doesn't overflow */
+  .pricing-card-featured { transform: none !important; }
+}
+
+/* ---- Download CTA buttons ---- */
+@media (max-width: 480px) {
+  .cta-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .cta-buttons .btn-primary,
+  .cta-buttons .btn-outline {
+    justify-content: center;
+  }
+}
+
+/* ---- Phone frame sizing ---- */
+@media (max-width: 768px) {
   .phone-frame {
     width: 220px;
     height: 450px;

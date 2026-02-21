@@ -227,10 +227,10 @@ const Navbar = () => {
             {theme === "dark" ? <Sun size={17} /> : <Moon size={17} />}
           </button>
 
-          {/* Download CTA */}
+          {/* Download CTA — hidden on mobile, visible on md+ */}
           <a
             href="#download"
-            className="btn-primary"
+            className="btn-primary nav-download-btn"
             style={{ padding: "10px 22px", fontSize: "14px" }}
             onClick={(e) => {
               e.preventDefault();
@@ -376,8 +376,9 @@ const Navbar = () => {
 
       <style>{`
         @media (max-width: 900px) {
-          .desktop-nav { display: none !important; }
-          .menu-btn    { display: flex !important; }
+          .desktop-nav      { display: none !important; }
+          .menu-btn         { display: flex !important; }
+          .nav-download-btn { display: none !important; }
         }
       `}</style>
     </header>

@@ -8,17 +8,7 @@ import { STATS } from "../../data/homeData";
 const StatsBar: React.FC = () => (
   <section id="stats" style={{ padding: "0 0 80px" }}>
     <div className="container">
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
-          gap: "2px",
-          background: "var(--border-subtle)",
-          borderRadius: "var(--radius-lg)",
-          overflow: "hidden",
-          border: "1px solid var(--border-card)",
-        }}
-      >
+      <div className="stats-grid">
         {STATS.map(({ value, label, icon: Icon }) => (
           <div
             key={label}

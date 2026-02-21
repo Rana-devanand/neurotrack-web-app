@@ -44,19 +44,12 @@ const PricingSection: React.FC = () => (
       </div>
 
       {/* Cards */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gap: "24px",
-          maxWidth: 960,
-          margin: "0 auto",
-        }}
-      >
+      <div className="pricing-grid">
         {PRICING.map(
           ({ name, price, period, desc, features, cta, highlighted }) => (
             <div
               key={name}
+              className={highlighted ? "pricing-card-featured" : ""}
               style={{
                 background: highlighted
                   ? "linear-gradient(160deg, rgba(108,59,255,0.25) 0%, rgba(0,212,200,0.12) 100%)"

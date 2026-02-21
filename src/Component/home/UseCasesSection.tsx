@@ -81,19 +81,7 @@ const UseCasesSection: React.FC = () => {
         </div>
 
         {/* Active panel */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "48px",
-            alignItems: "center",
-            background: "var(--bg-surface)",
-            borderRadius: "var(--radius-xl)",
-            padding: "48px",
-            border: "1px solid var(--border-card)",
-            boxShadow: "0 30px 80px rgba(108,59,255,0.1)",
-          }}
-        >
+        <div className="use-cases-panel">
           {/* Left — headline + description + CTA */}
           <div>
             <div

@@ -37,9 +37,10 @@ const HowItWorksSection: React.FC = () => (
 
       {/* Steps grid */}
       <div style={{ position: "relative" }}>
-        {/* Horizontal connector line */}
+        {/* Horizontal connector line (hidden on mobile via .how-connector) */}
         <div
           aria-hidden="true"
+          className="how-connector"
           style={{
             position: "absolute",
             top: "52px",
@@ -52,15 +53,7 @@ const HowItWorksSection: React.FC = () => (
           }}
         />
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gap: "24px",
-            position: "relative",
-            zIndex: 1,
-          }}
-        >
+        <div className="how-grid">
           {HOW_IT_WORKS.map(({ step, icon: Icon, title, desc }) => (
             <div key={step} style={{ textAlign: "center" }}>
               {/* Icon circle with step badge */}

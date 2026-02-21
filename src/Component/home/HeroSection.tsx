@@ -41,14 +41,7 @@ const HeroSection: React.FC = () => (
     />
 
     <div className="container" style={{ position: "relative", zIndex: 1 }}>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr auto",
-          gap: "64px",
-          alignItems: "center",
-        }}
-      >
+      <div className="hero-grid">
         {/* ── Left: Copy ── */}
         <div style={{ maxWidth: 620 }}>
           {/* Badge */}
@@ -92,6 +85,7 @@ const HeroSection: React.FC = () => (
 
           {/* CTA buttons */}
           <div
+            className="hero-ctas"
             style={{
               display: "flex",
               gap: "16px",
@@ -128,6 +122,7 @@ const HeroSection: React.FC = () => (
 
           {/* Trust badges */}
           <div
+            className="hero-badges"
             style={{
               display: "flex",
               alignItems: "center",
@@ -156,7 +151,10 @@ const HeroSection: React.FC = () => (
         </div>
 
         {/* ── Right: Phone ── */}
-        <div style={{ display: "flex", justifyContent: "center" }}>
+        <div
+          className="hero-phone"
+          style={{ display: "flex", justifyContent: "center" }}
+        >
           <PhoneMockup />
         </div>
       </div>

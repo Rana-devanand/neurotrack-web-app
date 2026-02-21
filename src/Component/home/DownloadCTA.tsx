@@ -67,6 +67,7 @@ const DownloadCTA: React.FC = () => (
 
       {/* Download buttons */}
       <div
+        className="cta-buttons"
         style={{
           display: "flex",
           justifyContent: "center",
@@ -74,14 +75,13 @@ const DownloadCTA: React.FC = () => (
           flexWrap: "wrap",
         }}
       >
-     
         <a
           href="#"
           id="download-appstore-btn"
           className="btn-outline"
           style={{ fontSize: "16px", padding: "15px 32px" }}
         >
-         <Smartphone size={20} />
+          <Smartphone size={20} />
           Google Play Store
         </a>
       </div>
