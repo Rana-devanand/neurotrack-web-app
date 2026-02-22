@@ -227,18 +227,14 @@ const Navbar = () => {
             {theme === "dark" ? <Sun size={17} /> : <Moon size={17} />}
           </button>
 
-          {/* Download CTA — hidden on mobile, visible on md+ */}
-          <a
-            href="#download"
+          {/* Admin Login CTA — hidden on mobile, visible on md+ */}
+          <Link
+            to="/admin/login"
             className="btn-primary nav-download-btn"
             style={{ padding: "10px 22px", fontSize: "14px" }}
-            onClick={(e) => {
-              e.preventDefault();
-              scrollTo("#download");
-            }}
           >
-            Download Free
-          </a>
+            Admin Login
+          </Link>
 
           {/* Hamburger */}
           <button
@@ -360,17 +356,14 @@ const Navbar = () => {
             Switch to {theme === "dark" ? "Light" : "Dark"} Mode
           </button>
 
-          <a
-            href="#download"
+          <Link
+            to="/admin/login"
             className="btn-primary"
             style={{ marginTop: "12px", justifyContent: "center" }}
-            onClick={(e) => {
-              e.preventDefault();
-              scrollTo("#download");
-            }}
+            onClick={() => setMenuOpen(false)}
           >
-            Download Free
-          </a>
+            Admin Login
+          </Link>
         </div>
       )}
 
