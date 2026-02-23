@@ -301,7 +301,7 @@ const CookiePolicyPage = () => {
               }}
             >
               <Link
-                to="/privacy"
+                to="/privacy-policy"
                 style={{
                   fontSize: 12,
                   color: "var(--primary-light)",
@@ -312,7 +312,7 @@ const CookiePolicyPage = () => {
                 → Privacy Policy
               </Link>
               <Link
-                to="/terms"
+                to="/terms-and-condition"
                 style={{
                   fontSize: 12,
                   color: "var(--primary-light)",
@@ -524,7 +524,7 @@ const CookiePolicyPage = () => {
                 </a>
                 . Also read our{" "}
                 <Link
-                  to="/privacy"
+                  to="/privacy-policy"
                   style={{ color: "var(--accent)", textDecoration: "none" }}
                 >
                   Privacy Policy

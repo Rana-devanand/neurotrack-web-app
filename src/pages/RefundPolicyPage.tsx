@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { BadgeDollarSign,  ChevronRight } from "lucide-react";
+import { BadgeDollarSign, ChevronRight } from "lucide-react";
 
 const LAST_UPDATED = "February 21, 2026";
 
@@ -144,7 +144,6 @@ const RefundPolicyPage = () => {
           style={{ width: 360, height: 360, top: "-140px", right: "-50px" }}
         />
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
-          
           <div
             style={{
               display: "inline-flex",
@@ -277,7 +276,7 @@ const RefundPolicyPage = () => {
               }}
             >
               <Link
-                to="/privacy"
+                to="/privacy-policy"
                 style={{
                   fontSize: 12,
                   color: "var(--primary-light)",
@@ -288,7 +287,7 @@ const RefundPolicyPage = () => {
                 → Privacy Policy
               </Link>
               <Link
-                to="/terms"
+                to="/terms-and-condition"
                 style={{
                   fontSize: 12,
                   color: "var(--primary-light)",

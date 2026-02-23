@@ -293,7 +293,7 @@ const PrivacyPage = () => {
               }}
             >
               <Link
-                to="/terms"
+                to="/terms-and-condition"
                 style={{
                   fontSize: 12,
                   color: "var(--primary-light)",
@@ -394,7 +394,7 @@ const PrivacyPage = () => {
                 </a>
                 . Also read our{" "}
                 <Link
-                  to="/terms"
+                  to="/terms-and-condition"
                   style={{ color: "var(--accent)", textDecoration: "none" }}
                 >
                   Terms of Service

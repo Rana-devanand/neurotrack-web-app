@@ -18,8 +18,8 @@ const Routers = () => {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/screenshots" element={<ScreenshotsPage />} />
-      <Route path="/privacy" element={<PrivacyPage />} />
-      <Route path="/terms" element={<TermsPage />} />
+      <Route path="/privacy-policy" element={<PrivacyPage />} />
+      <Route path="/terms-and-condition" element={<TermsPage />} />
       <Route path="/cookies" element={<CookiePolicyPage />} />
       <Route path="/refund" element={<RefundPolicyPage />} />
       <Route path="/delete-account" element={<DeleteAccountPage />} />
