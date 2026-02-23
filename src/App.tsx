@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Routers from "./Routes/index";
 import Navbar from "./Component/Navbar";
 import Footer from "./Component/Footer";
@@ -8,6 +9,9 @@ const App = () => {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
   return (
     <ThemeProvider>
       {!isAdminRoute && <Navbar />}

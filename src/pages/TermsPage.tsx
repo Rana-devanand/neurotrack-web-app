@@ -180,8 +180,6 @@ const TermsPage = () => {
           style={{ width: 380, height: 380, top: "-160px", right: "-60px" }}
         />
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
-         
-
           <div
             style={{
               display: "inline-flex",
@@ -311,7 +309,7 @@ const TermsPage = () => {
               }}
             >
               <Link
-                to="/privacy"
+                to="/privacy-policy"
                 style={{
                   fontSize: 12,
                   color: "var(--primary-light)",
@@ -402,7 +400,7 @@ const TermsPage = () => {
                 </a>
                 . Also read our{" "}
                 <Link
-                  to="/privacy"
+                  to="/privacy-policy"
                   style={{ color: "var(--accent)", textDecoration: "none" }}
                 >
                   Privacy Policy

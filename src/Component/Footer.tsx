@@ -28,8 +28,8 @@ const FOOTER_LINKS = {
     { label: "Contact", href: "#contact" },
   ],
   Legal: [
-    { label: "Privacy Policy", href: "/privacy" },
-    { label: "Terms of Service", href: "/terms" },
+    { label: "Privacy Policy", href: "/privacy-policy" },
+    { label: "Terms of Service", href: "/terms-and-condition" },
     { label: "Cookie Policy", href: "/cookies" },
     { label: "Refund Policy", href: "/refund" },
     { label: "Delete Account", href: "/delete-account" },
