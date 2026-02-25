@@ -4,6 +4,7 @@ import UseCasesSection from "../Component/home/UseCasesSection";
 import HowItWorksSection from "../Component/home/HowItWorksSection";
 import PricingSection from "../Component/home/PricingSection";
 import DownloadCTA from "../Component/home/DownloadCTA";
+import DataTransparencySection from "../Component/home/DataTransparencySection";
 
 /**
  * HomePage
@@ -17,6 +18,7 @@ const HomePage: React.FC = () => (
     <FeaturesSection />
     <UseCasesSection />
     <HowItWorksSection />
+    <DataTransparencySection />
     <PricingSection />
     <DownloadCTA />
   </main>

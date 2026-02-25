@@ -210,15 +210,7 @@ const PrivacyPage = () => {
 
       {/* ── BODY ── */}
       <section style={{ padding: "64px 0 96px" }}>
-        <div
-          className="container"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "220px 1fr",
-            gap: 56,
-            alignItems: "start",
-          }}
-        >
+        <div className="container policy-grid">
           {/* Sticky TOC — hidden on mobile via inline media */}
           <nav
             className="privacy-toc"
