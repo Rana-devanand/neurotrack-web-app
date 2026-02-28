@@ -9,62 +9,94 @@ const AdminDashboardPage = () => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [totalPages, setTotalPages] = useState(1);
+  const [selectedUser, setSelectedUser] = useState<any | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const token = localStorage.getItem("admin_token");
-    if (!token) {
-      navigate("/admin/login");
-      return;
-    }
-
-    const fetchUsers = async () => {
-      try {
-        const apiUrl =
-          import.meta.env.VITE_BE_URL || "http://localhost:8000/api";
-        const skip = (page - 1) * limit;
-        const response = await fetch(
-          `${apiUrl}/users?skip=${skip}&limit=${limit}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          },
-        );
-
-        if (!response.ok) {
-          if (response.status === 401 || response.status === 403) {
-            localStorage.removeItem("admin_token");
-            navigate("/admin/login");
-          }
-          throw new Error("Failed to fetch users");
-        }
-
-        const data = await response.json();
-        if (data.data?.users) {
-          setUsers(data.data.users);
-          const count = data.data.count || 0;
-          setTotalPages(Math.ceil(count / limit));
-        } else {
-          setUsers(Array.isArray(data.data) ? data.data : []);
-        }
-      } catch (error) {
-        console.error("Error loading dashboard data:", error);
-      } finally {
-        setLoading(false);
+  const fetchUsers = async () => {
+    try {
+      const token = localStorage.getItem("admin_token");
+      if (!token) {
+        navigate("/admin/login");
+        return;
       }
-    };
+      const apiUrl = import.meta.env.VITE_BE_URL || "http://localhost:8000/api";
+      const skip = (page - 1) * limit;
+      const response = await fetch(
+        `${apiUrl}/users?skip=${skip}&limit=${limit}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
 
+      if (!response.ok) {
+        if (response.status === 401 || response.status === 403) {
+          localStorage.removeItem("admin_token");
+          navigate("/admin/login");
+        }
+        throw new Error("Failed to fetch users");
+      }
+
+      const data = await response.json();
+      if (data.data?.users) {
+        setUsers(data.data.users);
+        const count = data.data.count || 0;
+        setTotalPages(Math.ceil(count / limit));
+      } else {
+        setUsers(Array.isArray(data.data) ? data.data : []);
+      }
+    } catch (error) {
+      console.error("Error loading dashboard data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchUsers();
   }, [navigate, page, limit]);
 
   const handleAction = (user: any) => {
-    alert(`Action for user: ${user.email}`);
+    setSelectedUser(user);
+    setIsModalOpen(true);
+  };
+
+  const toggleUserStatus = async () => {
+    if (!selectedUser) return;
+    try {
+      const token = localStorage.getItem("admin_token");
+      const apiUrl = import.meta.env.VITE_BE_URL || "http://localhost:8000/api";
+      const response = await fetch(`${apiUrl}/users/${selectedUser.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ active: !selectedUser.active }),
+      });
+
+      if (response.ok) {
+        await fetchUsers();
+        setIsModalOpen(false);
+      }
+    } catch (error) {
+      console.error("Error updating user status:", error);
+    }
   };
 
   const columns = [
     { key: "name", label: "Name", render: (row: any) => row.name || "Unknown" },
     { key: "email", label: "Email" },
+    {
+      key: "lastEmailFetch",
+      label: "Last Email Fetch",
+      render: (row: any) =>
+        row.lastEmailFetch
+          ? new Date(row.lastEmailFetch).toLocaleString()
+          : "Never",
+    },
     {
       key: "role",
       label: "Role",
@@ -169,6 +201,85 @@ const AdminDashboardPage = () => {
           />
         </div>
       </div>
+
+      {isModalOpen && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: "rgba(0,0,0,0.7)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 1000,
+            backdropFilter: "blur(4px)",
+          }}
+        >
+          <div
+            style={{
+              background: "var(--bg-surface)",
+              padding: "32px",
+              borderRadius: "20px",
+              width: "400px",
+              border: "1px solid var(--border-card)",
+              boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
+            }}
+          >
+            <h2
+              style={{
+                marginBottom: "16px",
+                color: "var(--text-primary)",
+                fontSize: "1.5rem",
+              }}
+            >
+              Manage User
+            </h2>
+            <p style={{ color: "var(--text-secondary)", marginBottom: "24px" }}>
+              Update status for <strong>{selectedUser?.email}</strong>
+            </p>
+
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "12px" }}
+            >
+              <button
+                onClick={toggleUserStatus}
+                style={{
+                  padding: "12px",
+                  borderRadius: "12px",
+                  background: selectedUser?.active
+                    ? "rgba(255, 77, 77, 0.1)"
+                    : "rgba(0, 212, 200, 0.1)",
+                  border: `1px solid ${selectedUser?.active ? "#ff4d4d" : "#00D4C8"}`,
+                  color: selectedUser?.active ? "#ff4d4d" : "#00D4C8",
+                  cursor: "pointer",
+                  fontWeight: 600,
+                  fontSize: "15px",
+                }}
+              >
+                {selectedUser?.active ? "Block User" : "Unblock User"}
+              </button>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                style={{
+                  padding: "12px",
+                  borderRadius: "12px",
+                  background: "transparent",
+                  border: "1px solid var(--border-card)",
+                  color: "var(--text-primary)",
+                  cursor: "pointer",
+                  fontWeight: 600,
+                  fontSize: "15px",
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

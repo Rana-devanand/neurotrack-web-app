@@ -187,6 +187,12 @@ const Navbar = () => {
             <Smartphone size={13} />
             Screenshots
           </Link>
+          <Link
+            to="/tester"
+            className={`nav-link${location.pathname === "/tester" ? " active" : ""}`}
+          >
+            Add as Tester
+          </Link>
         </nav>
 
         {/* ── Right controls ── */}
@@ -327,6 +333,28 @@ const Navbar = () => {
             }}
           >
             <Smartphone size={15} /> Screenshots
+          </Link>
+
+          {/* Add as Tester */}
+          <Link
+            to="/tester"
+            onClick={() => setMenuOpen(false)}
+            style={{
+              padding: "13px 16px",
+              borderRadius: "10px",
+              color:
+                location.pathname === "/tester"
+                  ? "var(--accent)"
+                  : "var(--text-secondary)",
+              textDecoration: "none",
+              fontWeight: 600,
+              fontSize: "15px",
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+            }}
+          >
+            Add as Tester
           </Link>
 
           {/* Theme toggle row */}

@@ -3,12 +3,13 @@ import { Link, useLocation } from "react-router-dom";
 import {
   Users,
   Mail,
-  Settings,
   LogOut,
   Zap,
   MessageSquare,
   CreditCard,
   Bell,
+  FlaskConical,
+  ShieldCheck,
 } from "lucide-react";
 
 const AdminSidebar = () => {
@@ -43,14 +44,19 @@ const AdminSidebar = () => {
       icon: <CreditCard size={18} />,
     },
     {
+      label: "Testers",
+      path: "/admin/testers",
+      icon: <FlaskConical size={18} />,
+    },
+    {
+      label: "14 Days Verification",
+      path: "/admin/verification",
+      icon: <ShieldCheck size={18} />,
+    },
+    {
       label: "Notifications",
       path: "/admin/notifications",
       icon: <Bell size={18} />,
-    },
-    {
-      label: "Settings",
-      path: "/admin/settings",
-      icon: <Settings size={18} />,
     },
   ];
 
