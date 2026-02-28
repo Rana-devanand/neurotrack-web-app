@@ -1,5 +1,5 @@
 import React from "react";
-import { Download, Play, Star, Target, Shield, Sparkles } from "lucide-react";
+import { Download, Play, Shield, Sparkles } from "lucide-react";
 import PhoneMockup from "./PhoneMockup";
 
 const scrollTo = (id: string) => {
