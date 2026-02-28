@@ -7,8 +7,6 @@ const scrollTo = (id: string) => {
 };
 
 const TRUST_BADGES = [
-  { icon: Star, label: "4.9 App Store" },
-  { icon: Target, label: "250K+ Users" },
   { icon: Shield, label: "100% Private" },
 ];
 

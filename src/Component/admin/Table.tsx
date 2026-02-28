@@ -211,6 +211,24 @@ const Table = <T extends Record<string, any>>({
           {totalPages && totalPages > 1 ? (
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
               <button
+                onClick={() => onPageChange && onPageChange(1)}
+                disabled={page === 1}
+                style={{
+                  padding: "6px 12px",
+                  borderRadius: "8px",
+                  border: "1px solid var(--border-card)",
+                  background: "var(--bg-default)",
+                  color:
+                    page === 1
+                      ? "var(--text-secondary)"
+                      : "var(--text-primary)",
+                  cursor: page === 1 ? "not-allowed" : "pointer",
+                  opacity: page === 1 ? 0.5 : 1,
+                }}
+              >
+                First
+              </button>
+              <button
                 onClick={() => onPageChange && page && onPageChange(page - 1)}
                 disabled={page === 1}
                 style={{
@@ -250,6 +268,24 @@ const Table = <T extends Record<string, any>>({
                 }}
               >
                 Next
+              </button>
+              <button
+                onClick={() => onPageChange && onPageChange(totalPages)}
+                disabled={page === totalPages}
+                style={{
+                  padding: "6px 12px",
+                  borderRadius: "8px",
+                  border: "1px solid var(--border-card)",
+                  background: "var(--bg-default)",
+                  color:
+                    page === totalPages
+                      ? "var(--text-secondary)"
+                      : "var(--text-primary)",
+                  cursor: page === totalPages ? "not-allowed" : "pointer",
+                  opacity: page === totalPages ? 0.5 : 1,
+                }}
+              >
+                Last
               </button>
             </div>
           ) : (

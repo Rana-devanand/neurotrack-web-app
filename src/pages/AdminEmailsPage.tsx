@@ -70,7 +70,6 @@ const AdminEmailsPage = () => {
       render: (row: any) => row.user_name || "Unknown",
     },
     { key: "user_email", label: "User Email" },
-    { key: "task_id", label: "Task ID" },
     {
       key: "subject",
       label: "Subject",
