@@ -12,6 +12,10 @@ const AdminVerificationPage = () => {
   const [emailData, setEmailData] = useState({ subject: "", message: "" });
   const [sending, setSending] = useState(false);
   const [generating, setGenerating] = useState(false);
+  const [includePlayStoreLink, setIncludePlayStoreLink] = useState(true);
+  const [filterStatus, setFilterStatus] = useState<
+    "installed" | "not-installed"
+  >("not-installed");
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const limit = 10;
@@ -48,6 +52,7 @@ const AdminVerificationPage = () => {
 
   const fetchInstallers = async () => {
     try {
+      setLoading(true);
       const token = localStorage.getItem("admin_token");
       if (!token) {
         navigate("/admin/login");
@@ -56,7 +61,7 @@ const AdminVerificationPage = () => {
       const apiUrl = import.meta.env.VITE_BE_URL || "http://localhost:8000/api";
       const skip = (page - 1) * limit;
       const response = await fetch(
-        `${apiUrl}/verification/installers?skip=${skip}&limit=${limit}`,
+        `${apiUrl}/verification/installers?skip=${skip}&limit=${limit}&status=${filterStatus}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -80,7 +85,7 @@ const AdminVerificationPage = () => {
 
   useEffect(() => {
     fetchInstallers();
-  }, [navigate, page]);
+  }, [navigate, page, filterStatus]);
 
   const toggleSelect = (id: string) => {
     setSelectedIds((prev) =>
@@ -112,6 +117,7 @@ const AdminVerificationPage = () => {
           userIds: selectedIds,
           subject: emailData.subject,
           messageBody: emailData.message,
+          includePlayStoreLink: includePlayStoreLink,
         }),
       });
 
@@ -164,13 +170,27 @@ const AdminVerificationPage = () => {
             display: "flex",
             alignItems: "center",
             gap: "6px",
-            color: "#00D4C8",
+            color: filterStatus === "installed" ? "#00D4C8" : "#FFBD59",
           }}
         >
-          <CheckCircle size={14} />
-          <span style={{ fontSize: "12px", fontWeight: 600 }}>Installed</span>
+          {filterStatus === "installed" ? (
+            <CheckCircle size={14} />
+          ) : (
+            <Sparkles size={14} />
+          )}
+          <span style={{ fontSize: "12px", fontWeight: 600 }}>
+            {filterStatus === "installed" ? "Installed" : "Not Installed"}
+          </span>
         </div>
       ),
+    },
+    {
+      key: "created_at",
+      label: filterStatus === "installed" ? "Joined At" : "Applied At",
+      render: (row: any) =>
+        row.created_at
+          ? new Date(row.created_at).toLocaleDateString()
+          : "Unknown",
     },
   ];
 
@@ -201,18 +221,88 @@ const AdminVerificationPage = () => {
             }}
           >
             <div>
-              <h1
+              <div
                 style={{
-                  fontSize: "2rem",
-                  color: "var(--text-primary)",
-                  marginBottom: "8px",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "16px",
+                  marginBottom: "12px",
                 }}
               >
-                14 Days Verification
-              </h1>
+                <h1
+                  style={{
+                    fontSize: "2rem",
+                    color: "var(--text-primary)",
+                    margin: 0,
+                  }}
+                >
+                  14 Days Verification
+                </h1>
+                <div
+                  style={{
+                    display: "flex",
+                    background: "var(--bg-surface)",
+                    padding: "4px",
+                    borderRadius: "12px",
+                    border: "1px solid var(--border-card)",
+                  }}
+                >
+                  <button
+                    onClick={() => {
+                      setFilterStatus("not-installed");
+                      setPage(1);
+                    }}
+                    style={{
+                      padding: "8px 16px",
+                      borderRadius: "8px",
+                      background:
+                        filterStatus === "not-installed"
+                          ? "var(--primary)"
+                          : "transparent",
+                      color:
+                        filterStatus === "not-installed"
+                          ? "#fff"
+                          : "var(--text-secondary)",
+                      border: "none",
+                      cursor: "pointer",
+                      fontWeight: 600,
+                      fontSize: "14px",
+                      transition: "all 0.2s",
+                    }}
+                  >
+                    Not Installed
+                  </button>
+                  <button
+                    onClick={() => {
+                      setFilterStatus("installed");
+                      setPage(1);
+                    }}
+                    style={{
+                      padding: "8px 16px",
+                      borderRadius: "8px",
+                      background:
+                        filterStatus === "installed"
+                          ? "var(--primary)"
+                          : "transparent",
+                      color:
+                        filterStatus === "installed"
+                          ? "#fff"
+                          : "var(--text-secondary)",
+                      border: "none",
+                      cursor: "pointer",
+                      fontWeight: 600,
+                      fontSize: "14px",
+                      transition: "all 0.2s",
+                    }}
+                  >
+                    Installed
+                  </button>
+                </div>
+              </div>
               <p style={{ color: "var(--text-secondary)", fontSize: "15px" }}>
-                Send bulk emails to active users who have the application
-                installed.
+                {filterStatus === "installed"
+                  ? "Send bulk emails to active users who have the application installed."
+                  : "Send bulk emails to applied testers who haven't installed the application yet."}
               </p>
             </div>
             {selectedIds.length > 0 && (
@@ -396,6 +486,65 @@ const AdminVerificationPage = () => {
                     resize: "none",
                   }}
                 />
+              </div>
+
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  padding: "16px",
+                  background: "rgba(108, 59, 255, 0.05)",
+                  borderRadius: "12px",
+                  border: "1px solid rgba(108, 59, 255, 0.1)",
+                }}
+              >
+                <div>
+                  <div
+                    style={{
+                      color: "var(--text-primary)",
+                      fontWeight: 600,
+                      fontSize: "14px",
+                    }}
+                  >
+                    Include App Store Link
+                  </div>
+                  <div
+                    style={{ color: "var(--text-secondary)", fontSize: "12px" }}
+                  >
+                    Add a direct link to the Google Play Store in the email.
+                  </div>
+                </div>
+                <div
+                  onClick={() => setIncludePlayStoreLink(!includePlayStoreLink)}
+                  style={{
+                    width: "44px",
+                    height: "24px",
+                    background: includePlayStoreLink
+                      ? "var(--primary)"
+                      : "var(--bg-default)",
+                    borderRadius: "12px",
+                    padding: "2px",
+                    cursor: "pointer",
+                    transition: "all 0.3s",
+                    border: "1px solid var(--border-card)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: includePlayStoreLink
+                      ? "flex-end"
+                      : "flex-start",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "18px",
+                      height: "18px",
+                      background: "#fff",
+                      borderRadius: "50%",
+                      boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+                    }}
+                  />
+                </div>
               </div>
 
               <div style={{ display: "flex", gap: "12px", marginTop: "12px" }}>
